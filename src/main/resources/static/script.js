@@ -3,12 +3,14 @@ let user = localStorage.getItem("user");
 
 if (!user) window.location.href = "login.html";
 
+user = user.trim();
+
 document.getElementById("userDisplay").innerText = "Welcome " + user;
 
-// 🔥 Get meetingId from storage
+// 🔹 Load meetingId
 let meetingId = localStorage.getItem("meetingId");
 
-// 🔥 Create Meeting
+// 🔥 CREATE MEETING
 async function createMeeting() {
 
   let title = document.getElementById("mTitle").value;
@@ -16,7 +18,7 @@ async function createMeeting() {
   let desc = document.getElementById("mDesc").value;
 
   if (!title || !date || !desc) {
-    alert("Fill all fields!");
+    alert("⚠️ Fill all fields!");
     return;
   }
 
@@ -24,8 +26,8 @@ async function createMeeting() {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
-      title: title,
-      date: date,
+      title,
+      date,
       description: desc,
       attendees: ["Anuja", "Pratham"]
     })
@@ -34,31 +36,28 @@ async function createMeeting() {
   let data = await res.json();
 
   meetingId = data.id;
-
-  // 🔥 SAVE ID (VERY IMPORTANT)
   localStorage.setItem("meetingId", meetingId);
 
-  // 🔥 SHOW MEETING
   document.getElementById("meetingDisplay").innerHTML = `
     <strong>${data.title}</strong><br>
     📅 ${data.date}<br>
     📝 ${data.description}
   `;
 
-  alert("Meeting Created ✅");
+  alert("✅ Meeting Created");
 
   loadDecisions();
 }
 
-// 🔹 Add Decision
+// 🔥 ADD DECISION
 async function addDecision() {
 
   if (!meetingId) {
-    alert("Create meeting first!");
+    alert("❌ Create meeting first!");
     return;
   }
 
-  let d = document.getElementById("decision").value;
+  let d = document.getElementById("decision").value.trim();
 
   if (!d) {
     alert("Enter decision");
@@ -73,19 +72,20 @@ async function addDecision() {
 
   document.getElementById("decision").value = "";
 
+  alert("✅ Decision Added");
+
   loadDecisions();
 }
 
-// 🔹 Add Task
+// 🔥 ADD TASK
 async function addTask() {
 
   if (!meetingId) {
-    alert("⚠️ Please create a meeting first!");
+    alert("Create meeting first!");
     return;
   }
 
   let task = document.getElementById("task").value;
-  let assignee = document.getElementById("assignee").value;
   let deadline = document.getElementById("deadline").value;
   let status = document.getElementById("status").value;
 
@@ -96,9 +96,9 @@ async function addTask() {
 
   let action = {
     title: task,
-    assignedTo: assignee,
-    deadline: deadline,
-    status: status
+    assignedTo: user, // 🔥 AUTO ASSIGN TO LOGGED USER
+    deadline,
+    status
   };
 
   await fetch(`http://localhost:8080/meetings/${meetingId}/action`, {
@@ -107,20 +107,27 @@ async function addTask() {
     body: JSON.stringify(action)
   });
 
+  alert("Task Added");
+
   document.getElementById("task").value = "";
   document.getElementById("deadline").value = "";
 
   loadTasks();
 }
-
-// 🔹 Load Tasks
+// 🔥 LOAD TASKS (PERSONAL FEED)
 async function loadTasks() {
 
   let res = await fetch(`http://localhost:8080/users/${user}/tasks`);
   let data = await res.json();
 
   let list = document.getElementById("taskList");
+
   list.innerHTML = "";
+
+  if (!data || data.length === 0) {
+    list.innerHTML = "<li>No tasks found</li>";
+    return;
+  }
 
   data.forEach(t => {
 
@@ -147,7 +154,7 @@ async function loadTasks() {
   });
 }
 
-// 🔹 Load Decisions
+// 🔥 LOAD DECISIONS
 async function loadDecisions() {
 
   if (!meetingId) return;
@@ -158,6 +165,7 @@ async function loadDecisions() {
   let meeting = data.find(m => m.id === meetingId);
 
   let list = document.getElementById("decisionList");
+
   list.innerHTML = "";
 
   if (meeting && meeting.decisions) {
@@ -169,8 +177,8 @@ async function loadDecisions() {
   }
 }
 
-// 🔹 Load meeting on refresh
-async function loadMeetingOnRefresh() {
+// 🔥 LOAD MEETING ON REFRESH
+async function loadMeeting() {
 
   if (!meetingId) return;
 
@@ -188,13 +196,13 @@ async function loadMeetingOnRefresh() {
   }
 }
 
-// 🔹 Logout
+// 🔹 LOGOUT
 function logout() {
   localStorage.clear();
   window.location.href = "login.html";
 }
 
 // 🔥 INIT
-loadMeetingOnRefresh();
+loadMeeting();
 loadTasks();
 loadDecisions();

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Meeting Tracker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>📊 Meeting Accountability Tracker</h1>
+  <h3 id="userDisplay"></h3>
+  <button onclick="logout()">Logout</button>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>Add Task</h2>
+    <input id="task" placeholder="Task">
+    <input type="date" id="deadline">
+    <button onclick="addTask()">Add Task</button>
+  </div>
+
+  <div class="card">
+    <h2>All Tasks</h2>
+    <ul id="taskList"></ul>
+  </div>
+
+  <div class="card">
+    <h2>Navigation</h2>
+    <a href="personal.html">
+      <button>👤 Personal Dashboard</button>
+    </a>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

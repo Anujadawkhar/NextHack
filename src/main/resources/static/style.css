@@ -1,0 +1,123 @@
+/* 🌈 Background */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #333;
+}
+
+/* 🔝 Header */
+header {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 26px;
+}
+
+/* 📦 Container */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* 🧾 Cards */
+.card {
+  background: white;
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* ✍ Inputs & Select */
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* 🔘 Buttons */
+button {
+  padding: 10px 15px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%;
+  margin-top: 5px;
+}
+
+button:hover {
+  background: #5a67d8;
+}
+
+/* 📋 Lists */
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+/* 📦 Task Items */
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin: 10px 0;
+  background: #f4f6fb;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+/* 🔴 Overdue Highlight */
+li.overdue {
+  border-left: 6px solid red;
+  background: #ffe5e5;
+}
+
+/* 📌 Left Section */
+li div {
+  max-width: 70%;
+}
+
+/* 🏷 Status */
+li span {
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+
+/* Status Colors */
+span:contains("OPEN") {
+  color: orange;
+}
+
+span:contains("IN_PROGRESS") {
+  color: blue;
+}
+
+span:contains("DONE") {
+  color: green;
+}
+
+/* 🔗 Links */
+a {
+  text-decoration: none;
+}

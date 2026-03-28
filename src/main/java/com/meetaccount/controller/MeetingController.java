@@ -7,38 +7,31 @@ import com.meetaccount.repository.MeetingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/meetings")
+@CrossOrigin(origins = "*")
 public class MeetingController {
 
     @Autowired
     private MeetingRepository repo;
 
-    // ✅ Create Meeting
+    // Create meeting
     @PostMapping
     public Meeting createMeeting(@RequestBody Meeting meeting) {
         return repo.save(meeting);
     }
 
-    @GetMapping("/test")
-    public String test() {
-    return "Working";
-    }
-
-
-    // ✅ Get All Meetings
+    // Get all meetings
     @GetMapping
-    public List<Meeting> getAllMeetings() {
+    public List<Meeting> getAll() {
         return repo.findAll();
     }
 
-    // ✅ Add Decision
+    // Add decision
     @PostMapping("/{id}/decision")
     public Meeting addDecision(@PathVariable String id, @RequestBody String decision) {
-
         Meeting m = repo.findById(id).orElseThrow();
 
         if (m.getDecisions() == null)
@@ -49,10 +42,9 @@ public class MeetingController {
         return repo.save(m);
     }
 
-    // ✅ Add Action Item
+    // Add action item
     @PostMapping("/{id}/action")
     public Meeting addAction(@PathVariable String id, @RequestBody ActionItem action) {
-
         Meeting m = repo.findById(id).orElseThrow();
 
         if (m.getActionItems() == null)

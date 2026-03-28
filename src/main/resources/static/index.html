@@ -1,37 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Meeting Tracker</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Meeting Tracker</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <header>
-  <h1>📊 Meeting Accountability Tracker</h1>
+  <h1>🚀 Meeting Accountability Tracker</h1>
   <h3 id="userDisplay"></h3>
-  <button onclick="logout()">Logout</button>
+  <button type="button" onclick="logout()">Logout</button>
 </header>
 
 <div class="container">
 
+  <!-- Create Meeting -->
   <div class="card">
-    <h2>Add Task</h2>
+    <h2>Create Meeting</h2>
+    <input id="mTitle" placeholder="Title">
+    <input id="mDate" type="date">
+    <input id="mDesc" placeholder="Agenda">
+    <button type="button" onclick="createMeeting()">Create</button>
+  </div>
+
+  <!-- Add Decision -->
+  <div class="card">
+    <h2>Decisions</h2>
+    <input id="decision" placeholder="Add decision">
+    <button type="button" onclick="addDecision()">Add Decision</button>
+    <ul id="decisionList"></ul>
+  </div>
+
+  <!-- Add Task -->
+  <div class="card">
+    <h2>Action Items</h2>
+
     <input id="task" placeholder="Task">
+
+    <select id="assignee">
+      <option>Anuja</option>
+      <option>Pratham</option>
+    </select>
+
     <input type="date" id="deadline">
-    <button onclick="addTask()">Add Task</button>
+
+    <select id="status">
+      <option>OPEN</option>
+      <option>IN_PROGRESS</option>
+      <option>DONE</option>
+    </select>
+
+    <button type="button" onclick="addTask()">Add Task</button>
   </div>
 
+  <!-- Tasks -->
   <div class="card">
-    <h2>All Tasks</h2>
+    <h2>My Tasks</h2>
     <ul id="taskList"></ul>
-  </div>
-
-  <div class="card">
-    <h2>Navigation</h2>
-    <a href="personal.html">
-      <button>👤 Personal Dashboard</button>
-    </a>
   </div>
 
 </div>

@@ -8,5 +8,5 @@ public class ActionItem {
     private String title;
     private String assignedTo;
     private String deadline;
-    private String status;
+    private String status; // OPEN, IN_PROGRESS, DONE
 }

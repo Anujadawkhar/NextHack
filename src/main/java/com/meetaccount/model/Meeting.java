@@ -14,9 +14,11 @@ public class Meeting {
     private String id;
 
     private String title;
-    private String description;
+    private String description; // agenda/context
+    private String date;
 
     private List<String> attendees;
+
     private List<String> decisions;
     private List<ActionItem> actionItems;
 }
